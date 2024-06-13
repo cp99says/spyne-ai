@@ -1,29 +1,54 @@
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require('uuid');
 
-const userSchema = mongoose.Schema({
+const replySchema = mongoose.Schema({
+    author: { type: String, required: true },
+    text: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+    likes: [{ userId: { type: String } }],
+    replies: [this]
+});
+
+const commentSchema = mongoose.Schema({
+    authorId: { type: String, required: true },
+    text: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+    likes: [{ userId: { type: String } }],
+    replies: [replySchema]
+});
+
+const discussionSchema = mongoose.Schema({
     text: {
         type: String,
         required: true,
     },
+    userId: {
+        type: String,
+        required: true
+    },
     imageURL: {
         type: String,
         required: true,
-        unique: true
     },
-    hashtags: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    createdAt: {
+    postId: {
         type: String,
         default: uuidv4()
     },
-    password: {
+    hashtags: [{
         type: String,
-        required: true
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    likes: [{
+        userId: { type: String }
+    }],
+    comments: [commentSchema],
+    viewCount: {
+        type: Number,
+        default: 1
     }
 });
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model("Discussion", discussionSchema);

@@ -1,6 +1,6 @@
 const app = require("express")();
 const jwt = require("jsonwebtoken");
-const { jwt_secret } = require('./../util/util.constant')
+const { jwt_secret } = require('./../util/util.constant');
 
 class validateRequests {
     async validate(req, res, next) {
@@ -25,7 +25,7 @@ class validateRequests {
                                 "token expired, please login again to generate a new token",
                         });
                     } else {
-                        console.log("request validated")
+                        req.user = decoded_token;
                         next();
                     }
                 }
@@ -39,3 +39,5 @@ class validateRequests {
 
     }
 }
+
+module.exports = new validateRequests();

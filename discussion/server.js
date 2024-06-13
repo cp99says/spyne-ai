@@ -3,7 +3,7 @@ require('./db/db.js');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// const user_routes = require('./routes/routes')
+const discussion_routes = require('./routes/routes')
 app.use(express.json());
 app.get('/', (req, res) => {
     res.send({
@@ -14,7 +14,7 @@ app.post('/ok', (req, res) => {
     console.log(req.body)
     res.send(req.body)
 })
-// app.use("/api", user_routes)
+app.use("/api", discussion_routes)
 
 const port = process.env.PORT || 3500;
 app.listen(port, () => {
