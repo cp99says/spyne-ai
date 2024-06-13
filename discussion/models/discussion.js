@@ -2,28 +2,28 @@ const mongoose = require("mongoose");
 const { v4: uuidv4 } = require('uuid');
 
 const userSchema = mongoose.Schema({
-    name: {
+    text: {
         type: String,
         required: true,
     },
-    phone: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    email: {
+    imageURL: {
         type: String,
         required: true,
         unique: true
     },
-    userId: {
+    hashtags: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    createdAt: {
         type: String,
         default: uuidv4()
     },
     password: {
         type: String,
         required: true
-    },
+    }
 });
 
 module.exports = mongoose.model("users", userSchema);
