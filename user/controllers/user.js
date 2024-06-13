@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const userSchema = require('./../models/user')
 const bcrypt = require('bcryptjs')
 const constants = require('./../util/util.constant')
+const { ingest_elasticsearch } = require('./../util/elasticsearch')
 
 class UserController {
     async register(req, res) {
@@ -16,8 +17,13 @@ class UserController {
         const user = new userSchema(
             { ...req.body, "password": hashedPassword }
         );
+        const elastic_payload = {
+            "email": req.body.email,
+            "name": req.body.name
+        }
         try {
             const data = await user.save();
+            ingest_elasticsearch(elastic_payload)
             return res.json({
                 status: "success",
                 message: "user registered sucessfully",
