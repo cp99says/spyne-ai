@@ -25,6 +25,7 @@ class Activity {
                     post_liked = true
                 }
             })
+            //this will take O(N), but can be optimised using creating indexes on DB or by using $exists function of Mongo itself, thats not covered due to time constraints
             if (post_liked) {
                 return res.status(401).json({
                     "status": false,
@@ -71,6 +72,7 @@ class Activity {
                     post_viewed = true
                 }
             })
+            //this will take O(N), but can be optimised using creating indexes on DB or by using $exists function of Mongo itself, thats not covered due to time constraints
         }
         if (post_viewed) {
             return res.status(400).json({
@@ -117,8 +119,9 @@ class Activity {
                     user_followed = true
                 }
             })
+            //this will take O(N), but can be optimised using creating indexes on DB or by using $exists function of Mongo itself, thats not covered due to time constraints
+
         }
-        console.log(user_followed);
         if (!user_followed) {
             const session = await mongoose.startSession();
             session.startTransaction();
