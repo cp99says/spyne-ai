@@ -45,10 +45,9 @@ const discussionSchema = mongoose.Schema({
         userId: { type: String, unique: true }
     }],
     comments: [commentSchema],
-    viewCount: {
-        type: Number,
-        default: 1
-    }
+    viewCount: [{
+        userId: { type: String, unique: true }
+    }]
 });
 
 module.exports = mongoose.model("Discussion", discussionSchema);

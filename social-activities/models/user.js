@@ -24,8 +24,12 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    followers: [{ type: String }],
-    following: [{ type: String }]
+    followers: [{
+        userId: { type: String, unique: true }
+    }],
+    following: [{
+        userId: { type: String, unique: true }
+    }]
 });
 
 module.exports = mongoose.model("users", userSchema);
