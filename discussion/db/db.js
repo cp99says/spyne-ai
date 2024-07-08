@@ -21,7 +21,7 @@ class MongoDBConnectionPool {
     }
 }
 
-const mongoDBConnectionPool = new MongoDBConnectionPool('mongodb+srv://cp99says:cp99says@cluster0.r2paftd.mongodb.net/SPYNE-AI?retryWrites=true&w=majority&appName=Cluster0');
+const mongoDBConnectionPool = new MongoDBConnectionPool('');
 mongoDBConnectionPool.connect();
 
 module.exports = mongoDBConnectionPool;
